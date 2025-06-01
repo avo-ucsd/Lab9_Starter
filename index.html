@@ -133,47 +133,54 @@
 
     const dirBtn = document.getElementById('dir');
     dirBtn.addEventListener('click', (event) => {
-
+      console.dir(dirBtn);
     });
 
     const dirXMLBtn = document.getElementById('dirxml');
     dirXMLBtn.addEventListener('click', (event) => {
-
+      console.dirxml(dirXMLBtn);
     });
 
     const groupStartBtn = document.getElementById('group-start');
     groupStartBtn.addEventListener('click', (event) => {
-
+      console.group();
     });
 
     const groupEndBtn = document.getElementById('group-end');
     groupEndBtn.addEventListener('click', (event) => {
-
+      console.groupEnd();
     });
 
     const tableBtn = document.getElementById('table');
     tableBtn.addEventListener('click', (event) => {
+      const myClasses = [
+        ['CSE 105', 'Theory of Computation'],
+        ['CSE 110', 'Software Engineering'],
+        ['CSE 120', 'Operating Systems'],
+        ['MATH 114', 'Computational Stochastics']
+      ];
 
+      console.table(myClasses);
     });
 
     const startTimerBtn = document.getElementById('start-timer');
     startTimerBtn.addEventListener('click', (event) => {
-
+      console.time();
     });
 
     const endTimerBtn = document.getElementById('end-timer');
     endTimerBtn.addEventListener('click', (event) => {
-
+      console.timeEnd();
     });
 
     const traceBtn = document.getElementById('trace');
     traceBtn.addEventListener('click', (event) => {
-
+      console.trace();
     });
 
     const globalErrBtn = document.getElementById('global-error');
     globalErrBtn.addEventListener('click', (event) => {
-
+      myGlobalError();
     });
   </script>
 </body>
