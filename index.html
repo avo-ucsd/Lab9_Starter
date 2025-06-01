@@ -47,6 +47,14 @@
       width: 122px;
     }
   </style>
+
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "a70469d84e4748f896d2ef989c9384b1"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
 </head>
 
 <body>
@@ -87,13 +95,6 @@
     </section>
   </main>
 
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
-    window.TrackJS && TrackJS.install({ 
-      token: "a70469d84e4748f896d2ef989c9384b1"
-      // for more configuration options, see https://docs.trackjs.com
-    });
-  </script>
   <script>
     class ValidationError extends Error {
       constructor(message) {
@@ -216,7 +217,11 @@
     // Step 5 - The Global Error handler and 3rd Party Tracking
     const globalErrBtn = document.getElementById('global-error');
     globalErrBtn.addEventListener('click', (event) => {
-      myGlobalError();
+      try {
+        myGlobalError();
+      } catch (error) {
+        console.error(error.message);
+      }
     });
   </script>
 </body>
