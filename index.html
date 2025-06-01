@@ -87,7 +87,28 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "a70469d84e4748f896d2ef989c9384b1"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+  <script>
+    class ValidationError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = 'ValidationError';
+      }
+    }
+
+    class DivideByZeroError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = 'DivideByZeroError';
+      }
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -95,12 +116,26 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+
+      // Step 3 - Trying Try/Catch
+      // Step 4 - Throw and Custom Errors
+      try {
+        if (isNaN(firstNum) || isNaN(secondNum)) {
+          throw new ValidationError('Invalid input: not a number');
+        } else if (operator === '/' && Number(secondNum) === 0) {
+          throw new DivideByZeroError('Invalid input: cannot divide by zero (0)');
+        }
+
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch (error) {
+        console.error(error.message);
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
+    // Step 2 - Adding Buttons for Console Testing
     const logBtn = document.getElementById('log');
     logBtn.addEventListener('click', (event) => {
       console.log('Console Log Demo');
@@ -178,6 +213,7 @@
       console.trace();
     });
 
+    // Step 5 - The Global Error handler and 3rd Party Tracking
     const globalErrBtn = document.getElementById('global-error');
     globalErrBtn.addEventListener('click', (event) => {
       myGlobalError();
