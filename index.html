@@ -258,11 +258,11 @@
     // Step 5 - The Global Error handler and 3rd Party Tracking
     const globalErrBtn = document.getElementById('global-error');
     globalErrBtn.addEventListener('click', (event) => {
-      try {
         myGlobalError();
-      } catch (error) {
-        console.error(error.message);
-      }
+    });
+
+    window.addEventListener('error', (event) => {
+      console.log(event.message);
     });
   </script>
 </body>
