@@ -93,6 +93,21 @@
       <button id="trace">Console Trace</button>
       <button id="global-error">Trigger a Global Error</button>
     </section>
+
+    <!-- Step 3: HTML -->
+    <br/>
+    <h1>Step 3: Try-Catch Exploration</h1>
+    <section id="try-catch-exploring">
+      <p>The button below should try putting text into an HTML element that is commented out.</p>
+      <form>
+        <fieldset>
+          <h2>Print Message</h2>
+          <input name="try-me-input" type="text" id="try-me-input"/>
+          <button id="try-me-btn">TRY ME!</button>
+        </fieldset>
+      </form>
+      <!-- <p id='try-me-output'></p> -->
+    </section>
   </main>
 
   <script>
@@ -110,7 +125,7 @@
       }
     }
 
-    let form = document.querySelector('form');
+    let form = document.querySelectorAll('form')[0];
     form.addEventListener('submit', e => {
       e.preventDefault();
       let output = document.querySelector('output');
@@ -118,7 +133,6 @@
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
 
-      // Step 3 - Trying Try/Catch
       // Step 4 - Throw and Custom Errors
       try {
         if (isNaN(firstNum) || isNaN(secondNum)) {
@@ -212,6 +226,33 @@
     const traceBtn = document.getElementById('trace');
     traceBtn.addEventListener('click', (event) => {
       console.trace();
+    });
+
+    // Step 3 - Trying Try/Catch
+    class EmptyStringError extends Error {
+      constructor () {
+        super('Input cannot be empty.');
+        this.name = 'EmptyStringError';
+      }
+    }
+
+    let tryMeForm = document.querySelectorAll('form')[1];
+    tryMeForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const tryMeMessage = document.getElementById('try-me-input').value;
+      try {
+        if (tryMeMessage === '') {
+          throw new EmptyStringError();
+        } 
+
+        // "Output" (it's commented out so it shouldn't work)
+        const tryMeOutput = document.getElementById('try-me-output');
+        tryMeOutput.text = tryMeMessage;
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        console.log(`Attempted to write \'${tryMeMessage}\'.`);
+      }
     });
 
     // Step 5 - The Global Error handler and 3rd Party Tracking
